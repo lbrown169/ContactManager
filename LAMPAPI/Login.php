@@ -9,6 +9,7 @@ $lastName = "";
 
 $conn = new mysqli("localhost", "WebApp", "WebBackend1", "COP4331");
 if ($conn->connect_error) {
+	http_response_code(500);
 	returnWithError($conn->connect_error);
 } else {
 	$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM Users WHERE Login=? AND Password =?");
@@ -19,6 +20,7 @@ if ($conn->connect_error) {
 	if ($row = $result->fetch_assoc()) {
 		returnWithInfo($row['firstName'], $row['lastName'], $row['ID']);
 	} else {
+		http_response_code(401);
 		returnWithError("No Records Found");
 	}
 
