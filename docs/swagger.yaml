@@ -1,0 +1,101 @@
+swagger: "2.0"
+info:
+  description: API Documentation for The Contact Manager
+  version: 1.0.0
+  title: The Contact Manager
+  contact:
+    email: loganbrown@ucf.edu
+host: cop4331.tech
+basePath: /LAMPAPI
+schemes:
+  - http
+paths:
+  /Login.php:
+    post:
+      tags:
+        - Users
+      summary: Logs in to the contact manager app
+      description: Logs in to the contact manager app
+      operationId: doLogin
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: loginItem
+          description: Login
+          required: true
+          schema:
+            $ref: "#/definitions/Login"
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: "Unauthorized, Incorrect Credentials"
+        "404":
+          description: URL Not Found
+  /AddContact.php:
+    post:
+      tags:
+        - Contacts
+      summary: Creates a Contact for the provided User ID
+      description: Creates a Contact for the provided User ID
+      operationId: doAddContact
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: contactItem
+          description: Contact
+          required: true
+          schema:
+            $ref: "#/definitions/Contact"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "401":
+          description: "Unauthorized, userId required"
+        "404":
+          description: URL Not Found
+definitions:
+  Login:
+    type: object
+    required:
+      - login
+      - password
+    properties:
+      login:
+        type: string
+        example: fred
+      password:
+        type: string
+        example: secret
+  Contact:
+    type: object
+    required:
+      - email
+      - firstName
+      - lastName
+      - phone
+      - userId
+    properties:
+      userId:
+        type: integer
+        example: 4
+      firstName:
+        type: string
+        example: John
+      lastName:
+        type: string
+        example: Doe
+      phone:
+        type: string
+        example: (123) 456-7890
+      email:
+        type: string
+        example: john.doe@example.com
