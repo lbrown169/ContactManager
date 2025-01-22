@@ -1,8 +1,8 @@
 swagger: "2.0"
 info:
-  description: API Documentation for The Contact Manager
+  description: API Documentation for Contact Keeper
   version: 1.0.0
-  title: The Contact Manager
+  title: Contact Keeper
   contact:
     email: loganbrown@ucf.edu
 host: cop4331.tech
@@ -14,8 +14,8 @@ paths:
     post:
       tags:
         - Users
-      summary: Logs in to the contact manager app
-      description: Logs in to the contact manager app
+      summary: Logs in to Contact Keeper
+      description: Logs in to Contact Keeper
       operationId: doLogin
       consumes:
         - application/json
@@ -35,6 +35,31 @@ paths:
           description: "Unauthorized, Incorrect Credentials"
         "404":
           description: URL Not Found
+  /Register.php:
+    post:
+      tags:
+        - Users
+      summary: Registers a user in Contact Keeper
+      description: Registers a user in Contact Keeper
+      operationId: doRegister
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: registerItem
+          description: Register
+          required: true
+          schema:
+            $ref: "#/definitions/Register"
+      responses:
+        "201":
+          description: User created
+        "400":
+          description: Bad Request
+        "409":
+          description: User already exists
   /AddContact.php:
     post:
       tags:
@@ -75,6 +100,20 @@ definitions:
       password:
         type: string
         example: secret
+  Register:
+    allOf:
+      - $ref: "#/definitions/Login"
+      - type: object
+        required:
+          - firstName
+          - lastName
+        properties:
+          firstName:
+            type: string
+            example: Fred
+          lastName:
+            type: string
+            example: Banks
   Contact:
     type: object
     required:
