@@ -39,8 +39,15 @@ if ($conn->connect_error) {
     $stmt->bind_param("sssss", $userId, $firstName, $lastName, $phone, $email);
     $stmt->execute();
     $stmt->close();
+    $responseObj = new stdClass();
+    $responseObj->id = $conn->insert_id;
+    $responseObj->userId = $userId;
+    $responseObj->firstName = $firstName;
+    $responseObj->lastName = $lastName;
+    $responseObj->phone = $phone;
+    $responseObj->email = $email;
     $conn->close();
-    returnWithError("");
+    returnWithInfo($responseObj);
 }
 
 function getRequestInfo()
@@ -57,5 +64,11 @@ function sendResultInfoAsJson($obj)
 function returnWithError($err)
 {
     $retValue = '{"error":"' . $err . '"}';
+    sendResultInfoAsJson($retValue);
+}
+
+function returnWithInfo($contact)
+{
+    $retValue = '{"error":"", "results":' . json_encode($contacts) . '}';
     sendResultInfoAsJson($retValue);
 }
