@@ -87,6 +87,33 @@ paths:
           description: "Unauthorized, userId required"
         "404":
           description: URL Not Found
+  /AddContact.php:
+    put:
+      tags:
+        - Contacts
+      summary: Updates a Contact for the provided User ID
+      description: Updates a Contact for the provided User ID
+      operationId: doUpdateContact
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: contactItem
+          description: Contact
+          required: true
+          schema:
+            $ref: "#/definitions/Contact"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "401":
+          description: "Unauthorized, userId required"
+        "404":
+          description: URL Not Found
 definitions:
   Login:
     type: object
