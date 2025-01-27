@@ -69,6 +69,6 @@ function returnWithError($err)
 
 function returnWithInfo($contact)
 {
-    $retValue = '{"error":"", "results":' . json_encode($contacts) . '}';
+    $retValue = '{"error":"", "results":' . json_encode($contact) . '}';
     sendResultInfoAsJson($retValue);
 }
