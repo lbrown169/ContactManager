@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+      <title>Contact Keeper Login</title>
+      <script type="text/javascript" src="md5.js"></script>
+      <script type="text/javascript" src="code.js"></script>
+      <link href="css/styles.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    
+    </head>
+    <body>
+        <header>
+            <img id="logo" src="logo.png" alt="logo image" width="100" height="100">
+            <h1 id="title" style="text-align: center; font-family:Georgia, 'Times New Roman', Times, serif">Contact Keeper Login</h1>
+          <hr width="36%;" color="aliceblue" size="6">
+          <br>
+        </header>
+        <!--<img id="logo" src="logo.png" alt="logo" align="right">-->
+        <form id="loginDiv" style="width: 500px; margin: 0 auto;">
+            <p style=" text-align:center;">
+            <body style="background-image: url('login_back.png'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;">
+            <span id="login-title" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Enter Login Information:<br></span>
+            <br>
+            <input type="text" id="loginUsername" placeholder="Username" required pattern="(?=.*[a-zA-z])[a-zA-z0-9-_]{3,13}$" />
+            <br>
+            <input type="password" id="loginPass" placeholder="Password" required pattern="(?=.*\d)(?=.*[A-za-z])(?=.*[!@#$%^&*]).{8,32}" />
+            <br>
+            <div class="buttonsDiv" id="LogButton">
+                <p style="text-align: center">
+                <button type="button" id="loginButton" class="buttons" onClick="doLogin();">
+                Login </button>
+                <!--<button type="button" id="loginButton" class="buttons" onclick="doRegistration();">
+                Register </button>-->
+                <br>
+                <br>
+                <br>
+            </div>
+        </form>
+
+        
+              
+        <form id="registerDiv" style="width: 500px; margin: 0 auto;">
+            <p style="text-align: center;">
+            <span id="login-title" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Not in Contacts?
+            <br>Sign-Up Below:<br>
+            <br></span>
+            <span class="text" style="color:cadetblue; font-family: 'aria-atomic';"></span>
+            <input type="text" id="firstName" placeholder="First Name" />
+            <br>
+            <input type="text" id="lastName" placeholder="Last Name" />
+            <br>
+            <hr width="30%;" color="aliceblue" size="2">
+            
+            <p style="text-align: center;">
+            <input type="text" id="loginUsername" placeholder="Username" required pattern="(?=.*[a-zA-z])[a-zA-z0-9-_]{3,13}" />
+            <br>
+            <input type="password" id="loginPass" placeholder="Password" required pattern="(?=.*\d)(?=.*[A-za-z])(?=.*[!@#$%^&*]).{8,32}" />
+            <br>
+            <div class"buttonsDiv" id="regButton">
+                <p style="text-align: center;">
+                <button type="button" id="regButton" class="buttons" onClick="doRegistration();">
+                    Register
+                </button>
+            </div>
+        </form>
+        
+    </body>
+</html>
