@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang+"en">
+
+<head>
+  <title>Contact Keeper Contacts</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="css/contacts.css" />
+  <script type="text/javascript" scr="code,js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
+
+  <!--UPDATE BACKGROUND PICTURE-->
+  <style>
+      h1 {
+          color: royalblue;
+      }
+      .pagination {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: aliceblue;
+   color: royalblue;
+   text-align: center;
+}
+
+  </style>
+</head>
+
+<body>
+<body style="background-image: url('contacts_back.png'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;"></body>
+  <center>
+  <div class="header">
+     <img id="logo" src="logo.png" alt="logo image" width="100" height="100" align="left">
+     <br>
+     <br>
+     <br>
+     <h1 id="title" font-family:Georgia, 'Times New Roman', Times, serif">Contact Keeper Contacts</h1>
+  </div>
+  <!--add a contact-->
+  <div class="add-contact">
+    <form id="addContact">
+      <label for="name">First Name:</label>
+      <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required>
+      <br>
+      <label for="name">Last Name:</label>
+      <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required>
+      <br>
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required>
+      <br>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter email" required>
+      <br>
+      <button type="submit">Add Contact</button>
+      <br>
+      <br>
+    </form>
+  </div>
+  <!--search a contact-->
+  <div class="search-contacts">
+    <form id="searchContact">
+      <label for="search">Search:</label>
+      <input type="text" id="search" name="search" placeholder="Enter name">
+      <button type="submit">Search</button>
+    </form>
+  </div>
+  <!--contact list table-->
+  <div id="contact-list">
+    <br>
+    <br>
+    <br>  
+    <table id="contactList" cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <!--pagination-->
+  <!--EDIT CSS FOR STYLING-->
+  <div class="pagination">
+    <p style="text-align: center;">
+    <a href="#">&laquo; Previous</a>
+    <a href="#">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">4</a>
+    <a href="#">5</a>
+    <a href="#">Next &raquo;</a>
+  </div>
+
+  </center>
+</body>
+
+</html>
