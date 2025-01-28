@@ -27,7 +27,7 @@ async function login(username, password) {
         if (response.ok) {
             const data = await response.json();
             console.log("Login successful:", data);
-            window.location.href = "Contacts.html";
+            window.location.href = "contacts.html";
         } else if (response.status === 401) {
             console.error("Login failed: Incorrect credentials.");
         } else {
