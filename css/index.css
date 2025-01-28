@@ -1,0 +1,61 @@
+ body {
+  background-image: url('login_back.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+h1 {
+  height: 150px;
+  width: 500px;
+  text-align: center;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-weight: bold;
+  color: rgb(6, 56, 33);
+}
+
+#logo{
+  height: 100px;
+  width: 100px;
+  float: left;
+}
+
+div {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -200px;
+}
+
+#git {
+  color: #003322;
+  font-family: ''Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1vw;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.git:hover,
+#git:hover {
+  color: #003c61;
+}
+
+.button {
+  color: #00412b;
+  font-family: ''Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif';
+  font-style: normal;
+  font-weight: bolder;
+  font-size: 1.3vw;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover,
+#home:hover {
+  color: #003c61;
+}
