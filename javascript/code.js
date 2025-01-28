@@ -1,25 +1,17 @@
-let isLoginMode = true;
-
 const firstNameField = document.getElementById("firstName");
 const lastNameField = document.getElementById("lastName");
 
 document.getElementById("loginButton").addEventListener("click", async function() {
-    if (isLoginMode == false){
-        isLoginMode = true;
-        toggleFields();
-        console.log("swapped to login");
-    } else if (isLoginMode == true){
-        const username = document.getElementById("loginUsername").value.trim();
-        const password = document.getElementById("loginPass").value.trim();
+    
+    const username = document.getElementById("loginUsername").value.trim();
+    const password = document.getElementById("loginPass").value.trim();
 
-        if (!username || !password) {
-            console.error("Username and password are required.");
-            return;
-        }
-
-        await login(username, password);
-
+    if (!username || !password) {
+        console.error("Username and password are required.");
+        return;
     }
+
+    await login(username, password);
 });
 
 async function login(username, password) {
@@ -46,40 +38,35 @@ async function login(username, password) {
     }
 }
 
-document.getElementById("signUpButton").addEventListener("click", async function () {
-    if (isLoginMode === true) {
-        isLoginMode = false;
-        toggleFields();
-        console.log("Switched to sign-up mode");
-    } else {
-        const firstName = firstNameField.value.trim();
-        const lastName = lastNameField.value.trim();
-        const username = document.getElementById("loginUsername").value.trim();
-        const password = document.getElementById("loginPass").value.trim();
+document.getElementById("regButton").addEventListener("click", async function () {
+    
+    const firstName = firstNameField.value.trim();
+    const lastName = lastNameField.value.trim();
+    const username = document.getElementById("registerUser").value.trim();
+    const password = document.getElementById("registerPass").value.trim();
 
-        if (!firstName) {
-            console.log("First name is required.");
-            return;
-        }
-
-        if (!lastName) {
-            console.log("Last name is required.");
-            return;
-        }
-
-        if (!username) {
-            console.log("Username is required.");
-            return;
-        }
-
-        if (!checkPasswordInput(password)) {
-            console.log("Password validation failed.");
-            return;
-        }
-
-        console.log("Attempting registration...");
-        await register(username, password, firstName, lastName);
+    if (!firstName) {
+        console.log("First name is required.");
+        return;
     }
+
+    if (!lastName) {
+        console.log("Last name is required.");
+        return;
+    }
+
+    if (!username) {
+        console.log("Username is required.");
+        return;
+    }
+
+    if (!checkPasswordInput(password)) {
+        console.log("Password validation failed.");
+        return;
+    }
+
+    console.log("Attempting registration...");
+    await register(username, password, firstName, lastName);
 });
 
 async function register(username, password, firstName, lastName) {
@@ -94,7 +81,7 @@ async function register(username, password, firstName, lastName) {
 
         if (response.status === 201) {
             console.log("Registration successful!");
-            window.location.href = "Contacts.html";
+            window.location.href = "contacts.html";
         } else if (response.status === 409) {
             console.error("Registration failed: Username already exists.");
             alert("This username is already taken. Please choose another one.");
@@ -183,4 +170,3 @@ function checkPasswordInput(password) {
     }
     return false;
 }
-
