@@ -4,8 +4,6 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
       <title>Contact Keeper Login</title>
-      <script type="text/javascript" src="javascript/md5.js"></script>
-      <script type="text/javascript" src="javascript/code.js"></script>
       <link href="css/login.css" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     
@@ -54,16 +52,18 @@
             <hr width="30%;" color="aliceblue" size="2">
             
             <p style="text-align: center;">
-            <input type="text" id="loginUsername" placeholder="Username" required pattern="(?=.*[a-zA-z])[a-zA-z0-9-_]{3,13}" />
+            <input type="text" id="registerUser" placeholder="Username"/>
             <br>
-            <input type="password" id="loginPass" placeholder="Password" required pattern="(?=.*\d)(?=.*[A-za-z])(?=.*[!@#$%^&*]).{8,32}" />
+            <input type="password" id="registerPass" placeholder="Password"/>
             <br>
             <div class"buttonsDiv" id="regButton">
                 <p style="text-align: center;">
-                <button type="button" id="regButton" class="buttons" onClick="doRegistration();">
+                <button type="button" id="regButton" class="buttons">
                     Register
                 </button>
             </div>
+            <script type="text/javascript" src="javascript/md5.js"></script>
+            <script type="text/javascript" src="javascript/code.js"></script>
         </form>
         
     </body>
