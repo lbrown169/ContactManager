@@ -8,6 +8,13 @@ $lastName = $inData["lastName"];
 $phone = $inData["phone"];
 $email = $inData["email"];
 
+// Check for required userId
+if (null === $userId) {
+    http_response_code(401);
+    returnWithError("missing parameter userId");
+    return;
+}
+
 // Check for required contactId
 if (null === $contactId) {
     http_response_code(400);
@@ -16,8 +23,10 @@ if (null === $contactId) {
 }
 
 // Check for at least one update field
-if (null === $userId && null === $firstName && null === $lastName && 
-    null === $phone && null === $email) {
+if (
+    null === $firstName && null === $lastName &&
+    null === $phone && null === $email
+) {
     http_response_code(400);
     returnWithError("at least one update field is required");
     return;
@@ -35,7 +44,7 @@ try {
     $updateFields = array();
     $types = "";
     $params = array();
-    
+
     if (null !== $userId) {
         $updateFields[] = "UserId=?";
         $types .= "s";

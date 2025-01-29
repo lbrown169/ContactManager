@@ -2,6 +2,14 @@
 $inData = getRequestInfo();
 
 $contactId = $inData["contactId"];
+$userId = $inData["userId"];
+
+// Check for required userId
+if (null === $userId) {
+    http_response_code(401);
+    returnWithError("missing parameter userId");
+    return;
+}
 
 // Check for required contactId
 if (null === $contactId) {
@@ -19,9 +27,10 @@ if ($conn->connect_error) {
 
 try {
 
-    $query = "DELETE FROM Contacts WHERE ID=?";
-    $types .= "i";  // for contactId
+    $query = "DELETE FROM Contacts WHERE ID=? AND UserID=?";
+    $types .= "is";  // for contactId and userId
     $params[] = $contactId;
+    $params[] = $userId;
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param($types, ...$params);
