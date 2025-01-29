@@ -22,6 +22,12 @@ if (null === $page) {
     $page = 0;
 } else {
     if (is_numeric($page)) {
+        $page = (int) $page;
+        if ($page <= 0) {
+            http_response_code(400);
+            returnWithError("page must be greater than 0");
+            return;
+        }
         $page = (((int) $page) - 1) * 15;
     } else {
         http_response_code(400);
@@ -45,7 +51,7 @@ try {
                             LastName LIKE ? OR 
                             Email LIKE ? OR 
                             Phone LIKE ?)
-                            ORDER BY FirstName, LastName
+                            ORDER BY FirstName, LastName, ID
                            LIMIT 15 OFFSET ?");
 
     $searchPattern = "%" . $query . "%";
