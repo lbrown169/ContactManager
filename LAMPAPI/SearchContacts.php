@@ -22,7 +22,7 @@ if (null === $page) {
     $page = 0;
 } else {
     if (is_numeric($page)) {
-        $page = ((int) $page) - 1;
+        $page = (((int) $page) - 1) * 15;
     } else {
         http_response_code(400);
         returnWithError("non-numeric parameter page");
@@ -49,7 +49,7 @@ try {
                            LIMIT 15 OFFSET ?");
 
     $searchPattern = "%" . $query . "%";
-    $stmt->bind_param("sssssi", $userId, $searchPattern, $searchPattern, $searchPattern, $searchPattern, $page * 15);
+    $stmt->bind_param("sssssi", $userId, $searchPattern, $searchPattern, $searchPattern, $searchPattern, $page);
     $stmt->execute();
 
     $result = $stmt->get_result();
