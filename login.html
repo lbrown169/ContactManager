@@ -27,13 +27,15 @@
             <br>
             <div class="buttonsDiv" id="LogButton">
                 <p style="text-align: center">
-                <button type="button" id="loginButton" class="buttons" onClick="doLogin();">
+                <button type="button" id="loginButton" class="buttons">
                 Login </button>
                 <!--<button type="button" id="loginButton" class="buttons" onclick="doRegistration();">
                 Register </button>-->
                 <br>
                 <br>
                 <br>
+            </div>
+            <div id="loginErrorFeed" style="color: red; text-align: center; display: none;">
             </div>
         </form>
 
@@ -61,6 +63,9 @@
                 <button type="button" id="regButton" class="buttons">
                     Register
                 </button>
+            </div>
+            <div id="regErrorFeed" style="color: red; text-align: center; display: none;">
+                <!-- Error messages for registration will appear here -->
             </div>
             <script type="text/javascript" src="javascript/md5.js"></script>
             <script type="text/javascript" src="javascript/code.js"></script>
