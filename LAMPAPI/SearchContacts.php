@@ -3,6 +3,7 @@ $inData = getRequestInfo();
 
 $userId = $inData["userId"];
 $query = $inData["query"];
+$page = $inData["page"];
 
 // Validate required parameters
 if (null === $userId) {
@@ -15,6 +16,18 @@ if (null === $query) {
     http_response_code(400);
     returnWithError("missing parameter query");
     return;
+}
+
+if (null === $page) {
+    $page = 0;
+} else {
+    if (is_numeric($page)) {
+        $page = ((int) $page) - 1;
+    } else {
+        http_response_code(400);
+        returnWithError("non-numeric parameter page");
+        return;
+    }
 }
 
 $conn = new mysqli("localhost", "WebApp", "WebBackend1", "COP4331");
@@ -32,17 +45,18 @@ try {
                             LastName LIKE ? OR 
                             Email LIKE ? OR 
                             Phone LIKE ?)
-                           LIMIT 50");
-    
+                            ORDER BY FirstName, LastName
+                           LIMIT 15 OFFSET ?");
+
     $searchPattern = "%" . $query . "%";
-    $stmt->bind_param("sssss", $userId, $searchPattern, $searchPattern, $searchPattern, $searchPattern);
+    $stmt->bind_param("sssssi", $userId, $searchPattern, $searchPattern, $searchPattern, $searchPattern, $page * 15);
     $stmt->execute();
-    
+
     $result = $stmt->get_result();
     $contacts = array();
-    
+
     // create response array
-    while($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         $contact = array(
             "id" => $row['ID'],
             "firstName" => $row['FirstName'],
@@ -52,7 +66,7 @@ try {
         );
         $contacts[] = $contact;
     }
-    
+
     http_response_code(200);
     returnWithInfo($contacts);
 
