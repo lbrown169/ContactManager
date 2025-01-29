@@ -6,11 +6,18 @@ document.getElementById("loginButton").addEventListener("click", async function(
     const username = document.getElementById("loginUsername").value.trim();
     const password = document.getElementById("loginPass").value.trim();
 
-    if (!username || !password) {
-        console.error("Username and password are required.");
+    if (!username) {
+        clearError("login");
+        showLoginError("Username required to login");
+        return;
+    }
+    if(!password){
+        clearError("login");
+        showLoginError("Password required to login");
         return;
     }
 
+    clearError("login");
     await login(username, password);
 });
 
@@ -29,11 +36,12 @@ async function login(username, password) {
             console.log("Login successful:", data);
             window.location.href = "contacts.html";
         } else if (response.status === 401) {
-            console.error("Login failed: Incorrect credentials.");
+            showLoginError("Incorrect credentials. Change username or password.");
         } else {
-            console.error("Login failed: Unknown error.");
+            showLoginError("Unknown Error");
         }
     } catch (error) {
+        showLoginError("Unknown Error");
         console.error("Error during login:", error);
     }
 }
@@ -45,27 +53,27 @@ document.getElementById("regButton").addEventListener("click", async function ()
     const username = document.getElementById("registerUser").value.trim();
     const password = document.getElementById("registerPass").value.trim();
 
+    clearError("reg");
     if (!firstName) {
-        console.log("First name is required.");
+        showRegistrationError("First name is required.");
         return;
     }
 
     if (!lastName) {
-        console.log("Last name is required.");
+        showRegistrationError("Last name is required.");
         return;
     }
 
     if (!username) {
-        console.log("Username is required.");
+        showRegistrationError("Username is required.");
         return;
     }
 
     if (!checkPasswordInput(password)) {
-        console.log("Password validation failed.");
+        showRegistrationError("Password contents invalid, must be at least 8 characters, include lowercase letter, uppercase letter, number, and special character");
         return;
     }
 
-    console.log("Attempting registration...");
     await register(username, password, firstName, lastName);
 });
 
@@ -83,18 +91,15 @@ async function register(username, password, firstName, lastName) {
             console.log("Registration successful!");
             window.location.href = "contacts.html";
         } else if (response.status === 409) {
-            console.error("Registration failed: Username already exists.");
-            alert("This username is already taken. Please choose another one.");
+            showRegistrationError("Username already exists.");
         } else if (response.status === 400) {
-            console.error("Registration failed: Bad request.");
-            alert("Please fill in all fields correctly.");
+            showRegistrationError("Bad request");
         } else {
-            console.error("Registration failed: Unknown error.");
-            alert("An unexpected error occurred. Please try again.");
+            showRegistrationError("Unknown error");
         }
     } catch (error) {
+        showRegistrationError("Unknown error");
         console.error("Error during registration:", error);
-        alert("Network error. Please check your connection and try again.");
     }
 }
 
@@ -169,4 +174,24 @@ function checkPasswordInput(password) {
         console.log("Password must contain atleast 1 special character");
     }
     return false;
+}
+
+function displayError(type, message) {
+    var errorDiv = (type === "login") ? document.getElementById("loginErrorFeed") : document.getElementById("regErrorFeed");
+    errorDiv.style.display = 'block';
+    errorDiv.textContent = message;
+}
+
+function clearError(type) {
+    var errorDiv = (type === "login") ? document.getElementById("loginErrorFeed") : document.getElementById("regErrorFeed");
+    errorDiv.style.display = 'none';
+    errorDiv.textContent = '';
+}
+
+function showLoginError(message) {
+    displayError("login", message);
+}
+
+function showRegistrationError(message) {
+    displayError("registration", message);
 }
