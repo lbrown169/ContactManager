@@ -79,7 +79,7 @@ body {
     width: 50%; 
   }
   
-  /* The Close Button (x) */
+  /* close button */
   .close {
     position: absolute;
     right: 195px;
