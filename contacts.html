@@ -5,67 +5,63 @@
   <title>Contact Keeper Contacts</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" href="css/contacts.css" />
-  <script type="text/javascript" scr="javascript/code.js"></script>
-  <script type="text/javascript" scr="javascript/md5.js"></script>
+  <link rel="stylesheet" href="contacts.css" />
+  <script type="text/javascript" scr="code,js"></script>
   <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
-
-  <!--UPDATE BACKGROUND PICTURE-->
-  <style>
-      h1 {
-          color: royalblue;
-      }
-      .pagination {
-   position: fixed;
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   background-color: aliceblue;
-   color: royalblue;
-   text-align: center;
-}
-
-  </style>
 </head>
 
 <body>
-<body style="background-image: url('contacts_back.png'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;"></body>
   <center>
   <div class="header">
-     <img id="logo" src="logo.png" alt="logo image" width="100" height="100" align="left">
+    <a href="index.html"><img id="logo" src="shark_logo.png" alt="logo image" width="100" height="100" align="left">
+        </a>
      <br>
      <br>
      <br>
      <h1 id="title" font-family:Georgia, 'Times New Roman', Times, serif">Contact Keeper Contacts</h1>
   </div>
-  <!--add a contact-->
-  <div class="add-contact">
-    <form id="addContact">
-      <label for="name">First Name:</label>
-      <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required>
-      <br>
-      <label for="name">Last Name:</label>
-      <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required>
-      <br>
-      <label for="phone">Phone:</label>
-      <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required>
-      <br>
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" placeholder="Enter email" required>
-      <br>
-      <button type="submit">Add Contact</button>
-      <br>
-      <br>
-    </form>
-  </div>
   <!--search a contact-->
   <div class="search-contacts">
     <form id="searchContact">
       <label for="search">Search:</label>
-      <input type="text" id="search" name="search" placeholder="Enter name">
-      <button type="submit">Search</button>
+      <input type="text" id="search" name="search" placeholder="Enter name"></input>
+      <br>
+      <button type="submit" style="width:auto;">Search</button>
+      <br>
+      <br>
     </form>
   </div>
+
+    <!--add a contact-->
+    <button type="button" id="regButton" class="buttons" style="width:auto;" onclick="document.getElementById('add-contact').style.display='block'">
+      <img id="add-cont-logo" src="shark_add_contact.jpg" alt="add contact image" width="50" height="50">
+    </button>
+
+    <div id="add-contact" class="modal">
+      <form class="modal-content animate" action="/action_page.php">
+        <span onclick="document.getElementById('add-contact').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <br>
+        <label class="text">Enter Information Below:</label>
+        <br>
+        <br>
+        <label for="name">First Name:</label>
+        <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required></input>
+        <br>
+        <label for="name">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required></input>
+        <br>
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" placeholder="Enter Phone Number" required></input>
+        <br>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" placeholder="Enter Email" required></input>
+        <br>
+        <button type="submit" style="width:auto;" style="background-color: #1ca7a7;">Add Contact</button>
+        <br>
+        <br>
+      </form>
+    </div>
+
   <!--contact list table-->
   <div id="contact-list">
     <br>
