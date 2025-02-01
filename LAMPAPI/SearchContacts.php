@@ -86,7 +86,7 @@ try {
     $stmt->bind_param("sssss", $userId, $searchPattern, $searchPattern, $searchPattern, $searchPattern);
     $stmt->execute();
     $result = $stmt->get_result();
-    $pages = $result->fetch_assoc()['total'];
+    $pages = ceil($result->fetch_assoc()['total'] / 15);
 
     http_response_code(200);
     returnWithInfo($contacts, $page, $pages);
