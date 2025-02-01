@@ -18,8 +18,9 @@ if (null === $query) {
     return;
 }
 
+$offset = 0;
 if (null === $page) {
-    $page = 0;
+    $page = 1;
 } else {
     if (is_numeric($page)) {
         $page = (int) $page;
@@ -28,7 +29,7 @@ if (null === $page) {
             returnWithError("page must be greater than 0");
             return;
         }
-        $page = (((int) $page) - 1) * 15;
+        $offset = (((int) $page) - 1) * 15;
     } else {
         http_response_code(400);
         returnWithError("non-numeric parameter page");
@@ -55,7 +56,7 @@ try {
                            LIMIT 15 OFFSET ?");
 
     $searchPattern = "%" . $query . "%";
-    $stmt->bind_param("sssssi", $userId, $searchPattern, $searchPattern, $searchPattern, $searchPattern, $page);
+    $stmt->bind_param("sssssi", $userId, $searchPattern, $searchPattern, $searchPattern, $searchPattern, $offset);
     $stmt->execute();
 
     $result = $stmt->get_result();
@@ -73,8 +74,22 @@ try {
         $contacts[] = $contact;
     }
 
+    // Get for page count
+    $stmt = $conn->prepare("SELECT COUNT(*) as total FROM Contacts 
+                           WHERE UserId=? AND 
+                           (FirstName LIKE ? OR 
+                            LastName LIKE ? OR 
+                            Email LIKE ? OR 
+                            Phone LIKE ?)
+                            ORDER BY FirstName, LastName, ID");
+
+    $stmt->bind_param("sssss", $userId, $searchPattern, $searchPattern, $searchPattern, $searchPattern);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $pages = $result->fetch_assoc()['total'];
+
     http_response_code(200);
-    returnWithInfo($contacts);
+    returnWithInfo($contacts, $page, $pages);
 
     $stmt->close();
 } catch (Exception $e) {
@@ -101,8 +116,8 @@ function returnWithError($err)
     sendResultInfoAsJson($retValue);
 }
 
-function returnWithInfo($contacts)
+function returnWithInfo($contacts, $page, $pages)
 {
-    $retValue = '{"error":"", "results":' . json_encode($contacts) . '}';
+    $retValue = '{"error":"", "pages": ' . $pages . ', "page": ' . $page . ', "results":' . json_encode($contacts) . '}';
     sendResultInfoAsJson($retValue);
 }
