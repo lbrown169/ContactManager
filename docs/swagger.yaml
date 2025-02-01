@@ -7,258 +7,299 @@ info:
     email: loganbrown@ucf.edu
 host: cop4331.tech
 basePath: /LAMPAPI
-schemes:
-  - http
+schemes: [http]
+
 paths:
-  /Login.php:
-    post:
-      tags:
-        - Users
-      summary: Logs in to Contact Keeper
-      description: Logs in to Contact Keeper
-      operationId: doLogin
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: loginItem
-          description: Login
-          required: true
-          schema:
-            $ref: "#/definitions/Login"
-      responses:
-        "200":
-          description: OK
-        "401":
-          description: "Unauthorized, Incorrect Credentials"
-        "404":
-          description: URL Not Found
   /Register.php:
     post:
-      tags:
-        - Users
+      tags: [Users]
       summary: Registers a user in Contact Keeper
       description: Registers a user in Contact Keeper
       operationId: doRegister
-      consumes:
-        - application/json
-      produces:
-        - application/json
+      consumes: [application/json]
+      produces: [application/json]
       parameters:
         - in: body
           name: registerItem
           description: Register
           required: true
           schema:
-            $ref: "#/definitions/Register"
+            allOf:
+            - $ref: "#/definitions/UserCredentials"
+            - $ref: "#/definitions/UserInfo"
+            required: [login, password, firstName, lastName]
       responses:
-        "201":
-          description: User created
+        "201": {description: User created, schema: {$ref: '#/definitions/BaseResponse'}}
         "400":
           description: Bad Request
+          schema:
+            allOf:
+              - $ref: '#/definitions/BaseResponse'
+              - properties: {error: {example: missing parameter firstName}}
         "409":
           description: User already exists
+          schema:
+            allOf:
+              - $ref: '#/definitions/BaseResponse'
+              - properties: {error: {example: username is taken}}
+        "404": {description: URL Not Found}
+
+  /Login.php:
+    post:
+      tags: [Users]
+      summary: Logs in to Contact Keeper
+      description: Logs in to Contact Keeper
+      operationId: doLogin
+      consumes: [application/json]
+      produces: [application/json]
+      parameters:
+        - in: body
+          name: loginItem
+          description: Login
+          required: true
+          schema: {allOf: [$ref: "#/definitions/UserCredentials"], required: [login, password]}
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+              - $ref: '#/definitions/LoginResponse'
+              - properties:
+                  id: {example: 1}
+                  firstName: {example: John}
+                  lastName: {example: Doe}
+        "401":
+          description: "Unauthorized, Incorrect Credentials"
+          schema:
+            allOf:
+              - $ref: '#/definitions/LoginResponse'
+              - properties: {error: {example: No Records Found}}
+        "404": {description: URL Not Found}
+
   /AddContact.php:
     post:
-      tags:
-        - Contacts
+      tags: [Contacts]
       summary: Creates a Contact for the provided User ID
       description: Creates a Contact for the provided User ID
       operationId: doAddContact
-      consumes:
-        - application/json
-      produces:
-        - application/json
+      consumes: [application/json]
+      produces: [application/json]
       parameters:
         - in: body
           name: contactItem
           description: Contact
           required: true
           schema:
-            $ref: "#/definitions/RequiredContact"
+            allOf:
+            - $ref: "#/definitions/Authentication"
+            - $ref: "#/definitions/ContactInfo"
+            required: [firstName, lastName, phone, email, userId]
       responses:
         "200":
           description: OK
+          schema: {$ref: '#/definitions/AddContactResponse'}
         "400":
           description: Bad Request
+          schema:
+            allOf:
+              - $ref: '#/definitions/AddContactResponse'
+              - properties:
+                  results: {example: {}}
+                  error: {example: "missing parameter firstName"}
         "401":
           description: "Unauthorized, userId required"
-        "404":
-          description: URL Not Found
+          schema:
+            allOf:
+              - $ref: '#/definitions/AddContactResponse'
+              - properties:
+                  results: {example: {}}
+                  error: {example: "missing parameter userId"}
+        "404": {description: URL Not Found}
+
   /UpdateContact.php:
     put:
-      tags:
-        - Contacts
+      tags: [Contacts]
       summary: Updates a Contact for the provided User ID
       description: Updates a Contact for the provided User ID
       operationId: doUpdateContact
-      consumes:
-        - application/json
-      produces:
-        - application/json
+      consumes: [application/json]
+      produces: [application/json]
       parameters:
         - in: body
           name: updateContactItem
           description: Update Contact
           required: true
-          schema:
-            $ref: "#/definitions/UpdateContact"
+          schema: 
+            allOf: 
+              - $ref: "#/definitions/Authentication"
+              - $ref: "#/definitions/ContactInfo"
+              - $ref: "#/definitions/SpecificContact"
+            required: [userId, contactId]
       responses:
         "200":
           description: OK
+          schema: {$ref: '#/definitions/BaseResponse'}
         "400":
           description: Bad Request
+          schema:
+            allOf:
+              - $ref: '#/definitions/BaseResponse'
+              - properties: {error: {example: missing parameter contactId}}
         "401":
           description: "Unauthorized, userId required"
-        "404":
-          description: URL Not Found
+          schema:
+            allOf:
+              - $ref: '#/definitions/BaseResponse'
+              - properties: {error: {example: missing parameter userId}}
+        "404": {description: URL Not Found}
+
   /SearchContacts.php:
     post:
-      tags:
-        - Contacts
+      tags: [Contacts]
       summary: Searches contacts for the provided User ID, according to Query
       description: Searches contacts for the provided User ID, according to Query
       operationId: doSearchContacts
-      consumes:
-        - application/json
-      produces:
-        - application/json
+      consumes: [application/json]
+      produces: [application/json]
       parameters:
         - in: body
           name: searchQueryItem
           description: Search Query
           required: true
-          schema:
-            $ref: "#/definitions/SearchQuery"
+          schema: 
+            allOf:
+            - $ref: "#/definitions/Authentication"
+            - properties: 
+                query: {type: string, example: "Doe"}
+                page: {type: integer, example: 2}
       responses:
         "200":
           description: OK
+          schema: {$ref: '#/definitions/SearchContactsResponse'}
         "400":
           description: Bad Request
+          schema:
+            allOf:
+              - $ref: '#/definitions/SearchContactsResponse'
+              - type: object
+                properties: 
+                  error: {example: "missing parameter query"}
+                  results: {example: []}
+                  page: {example: 0}
+                  pages: {example: 0}
         "401":
           description: "Unauthorized, userId required"
-        "404":
-          description: URL Not Found
+          schema:
+            allOf:
+              - $ref: '#/definitions/SearchContactsResponse'
+              - type: object
+                properties: 
+                  error: {example: "missing parameter userId"}
+                  results: {example: []}
+                  page: {example: 0}
+                  pages: {example: 0}
+        "404": {description: URL Not Found}
+
   /DeleteContact.php:
     post:
-      tags:
-        - Contacts
+      tags: [Contacts]
       summary: Deletes a contact for the provided User ID
       description: Deletes a contact for the provided User ID
       operationId: doDeleteContact
-      consumes:
-        - application/json
-      produces:
-        - application/json
+      consumes: [application/json]
+      produces: [application/json]
       parameters:
         - in: body
           name: deleteContactItem
           description: Contact
           required: true
           schema:
-            $ref: "#/definitions/DeleteQuery"
+            allOf:
+            - $ref: "#/definitions/Authentication"
+            - $ref: "#/definitions/SpecificContact"
       responses:
         "204":
           description: Contact Deleted
+          schema: {$ref: '#/definitions/BaseResponse'}
         "400":
           description: Bad Request
+          schema:
+            allOf:
+              - $ref: '#/definitions/BaseResponse'
+              - properties: {error: {example: missing parameter contactId}}
         "401":
           description: "Unauthorized, userId required"
-        "404":
-          description: URL Not Found
+          schema:
+            allOf:
+              - $ref: '#/definitions/BaseResponse'
+              - properties: {error: {example: missing parameter userId}}
+        "404": {description: URL Not Found}
 
 definitions:
-  Login:
+  # Base Models
+  UserCredentials:
     type: object
-    required:
-      - login
-      - password
+    required: [login, password]
     properties:
-      login:
-        type: string
-        example: fred
-      password:
-        type: string
-        example: secret
-  Register:
+      login: {type: string, example: fred}
+      password: {type: string, example: secret}
+
+  Authentication:
+    type: object
+    required: [userId]
+    properties: 
+      userId: {type: integer, example: 4}
+
+  UserInfo:
+    type: object
+    properties: 
+      firstName: {type: string, example: John}
+      lastName: {type: string, example: Doe}
+
+  ContactInfo:
     allOf:
-      - $ref: "#/definitions/Login"
+      - $ref: '#/definitions/UserInfo'
       - type: object
-        required:
-          - firstName
-          - lastName
-        properties:
-          firstName:
-            type: string
-            example: Fred
-          lastName:
-            type: string
-            example: Banks
-  Contact:
+        properties: 
+          phone: {type: string, example: (123) 456-7890}
+          email: {type: string, example: john.doe@example.com}
+
+  SpecificContact:
     type: object
-    required:
-      - userId
-    properties:
-      userId:
-        type: integer
-        example: 4
-      firstName:
-        type: string
-        example: John
-      lastName:
-        type: string
-        example: Doe
-      phone:
-        type: string
-        example: (123) 456-7890
-      email:
-        type: string
-        example: john.doe@example.com
-  RequiredContact:
+    required: [contactId]
+    properties: 
+      contactId: {type: integer, example: 6}
+
+# Responses
+  BaseResponse:
+    type: object
+    properties: {error: {type: string, example: ""}}
+
+  LoginResponse:
     allOf:
-      - $ref: "#/definitions/Contact"
-      - type: object
-        required:
-          - email
-          - firstName
-          - lastName
-          - phone
-  UpdateContact:
+      - $ref: '#/definitions/BaseResponse'
+      - $ref: '#/definitions/UserInfo'
+      - properties: {id: {type: integer, example: 0}}
+
+  AddContactResponse:
     allOf:
-      - $ref: "#/definitions/Contact"
+      - $ref: '#/definitions/BaseResponse'
+      - properties:
+          results:
+            allOf:
+              - $ref: '#/definitions/ContactInfo'
+              - properties: {id: {type: integer, example: 6}}
+
+  SearchContactsResponse:
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
       - type: object
-        required:
-          - contactId
-        properties:
-          contactId:
-            type: integer
-            example: 4
-  SearchQuery:
-    type: object
-    required:
-      - userId
-      - query
-    properties:
-      userId:
-        type: integer
-        example: 4
-      query:
-        type: string
-        example: John
-      page:
-        type: integer
-        example: 1
-  DeleteQuery:
-    type: object
-    required:
-      - userId
-      - contactId
-    properties:
-      userId:
-        type: integer
-        example: 4
-      contactId:
-        type: integer
-        example: 10
+        properties: 
+          results:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/definitions/ContactInfo'
+                - properties: {id: {type: integer, example: 6}}
+          page: {type: integer, example: 1}
+          pages: {type: integer, example: 3}
