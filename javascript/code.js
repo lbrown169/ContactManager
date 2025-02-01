@@ -75,6 +75,7 @@ document.getElementById("regButton").addEventListener("click", async function ()
     }
 
     await register(username, password, firstName, lastName);
+    document.getElementById('registerDiv').style.display='none';
 });
 
 async function register(username, password, firstName, lastName) {
