@@ -22,14 +22,14 @@
             <div>
             <label id="login-title">Enter Login Information:<br></label>
             <br>
-            <input type="text" id="loginUsername" placeholder="Username" required pattern="(?=.*[a-zA-z])[a-zA-z0-9-_]{3,13}$" />
+            <input type="text" id="loginUsername" placeholder="Username"/>
             <br>
-            <input type="password" id="loginPass" placeholder="Password" required pattern="(?=.*\d)(?=.*[A-za-z])(?=.*[!@#$%^&*]).{8,32}" />
+            <input type="password" id="loginPass" placeholder="Password"/>
             <br>
             </div>
             <div class="buttonsDiv" id="LogButton">
                 <p style="text-align: center">
-                <button type="button" id="loginButton" class="buttons" style="width:auto;" onclick="doLogin();">
+                <button type="button" id="loginButton" class="buttons" style="width:auto;">
                 Login </button>
                 <br>
                 <br>
@@ -58,9 +58,9 @@
                     <input type="text" id="lastName" placeholder="Last Name" />
                     <br>
                     <hr width="30%;" color="aliceblue" size="2">
-                    <input type="text" id="registerUser"  placeholder="Username"/> <!-- required pattern="(?=.*[a-zA-z])[a-zA-z0-9-_]{3,13}" />-->
+                    <input type="text" id="registerUser"  placeholder="Username"/>
                     <br>
-                    <input type="text" id="registerPass" placeholder="Password"/> <!-- required pattern="(?=.*\d)(?=.*[A-za-z])(?=.*[!@#$%^&*]).{8,32}" />-->
+                    <input type="text" id="registerPass" placeholder="Password"/>
                     <br>
                     <button type="button" id="regButton" class="buttons" style="width:auto;" >
                         Sign-Up
@@ -68,7 +68,7 @@
                     <br>
                 </div>
                 <div id="regErrorFeed" style="color: red; text-align: center; display: none;">
-                    <!-- Error messages for registration will appear here -->
+                    
                 </div>
         </form>
         </center>
