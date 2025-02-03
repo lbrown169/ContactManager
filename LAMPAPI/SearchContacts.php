@@ -29,7 +29,7 @@ if (null === $page) {
             returnWithError("page must be greater than 0");
             return;
         }
-        $offset = (((int) $page) - 1) * 15;
+        $offset = (((int) $page) - 1) * 12;
     } else {
         http_response_code(400);
         returnWithError("non-numeric parameter page");
@@ -53,7 +53,7 @@ try {
                             Email LIKE ? OR 
                             Phone LIKE ?)
                             ORDER BY FirstName, LastName, ID
-                           LIMIT 15 OFFSET ?");
+                           LIMIT 12 OFFSET ?");
 
     $searchPattern = "%" . $query . "%";
     $stmt->bind_param("sssssi", $userId, $searchPattern, $searchPattern, $searchPattern, $searchPattern, $offset);
@@ -86,7 +86,7 @@ try {
     $stmt->bind_param("sssss", $userId, $searchPattern, $searchPattern, $searchPattern, $searchPattern);
     $stmt->execute();
     $result = $stmt->get_result();
-    $pages = ceil($result->fetch_assoc()['total'] / 15);
+    $pages = ceil($result->fetch_assoc()['total'] / 12);
 
     http_response_code(200);
     returnWithInfo($contacts, $page, $pages);
