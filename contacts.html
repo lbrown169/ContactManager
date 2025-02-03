@@ -92,7 +92,9 @@
           <td id="email0"></td>
           <td id="phoneNumber0"></td>
           <td>
-            <button type="button" id="editButton0" onclick="document.getElementById('edit-contact').style.display='block'">Edit</button>
+            <a href="#" class="edit-contacts" type="button" id="editContacts" style="width:auto;" onclick="document.getElementById('edit-contact').style.display='block'">
+              <img id="edit-contacts" src="Pictures/edit_icon.png" width="50" height="45">
+            </a>
             <div id="edit-contact" class="modal">
               <form class="modal-content animate">
                 <span onclick="document.getElementById('edit-contact').style.display='none'" class="close" title="Close Modal">&times;</span>
@@ -121,7 +123,11 @@
                 <br>
               </form>
             </div>
-            <button type="button" id="deleteButton0" onclick="deleteContact();">Delete</button>
+            <br>
+            <br>
+            <a href="#" class="delete-contact" type="button" id="deleteContact" style="width:auto;" onclick="deleteContact();">
+              <img id="delete-contact" src="Pictures/delete_icon.png" width="50" height="48">
+            </a>
           </td>
         </tr>
       </tbody>
