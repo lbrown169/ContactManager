@@ -27,6 +27,7 @@ async function login(username, password) {
 
         if (response.ok) {
             clearError("login");
+            clearError("reg");
             const data = await response.json();
             console.log("Login successful:", data);
             window.location.href = "contacts.html";
@@ -83,7 +84,8 @@ async function register(username, password, firstName, lastName) {
         });
 
         if (response.status === 201) {
-            clearError("register");
+            clearError("reg");
+            clearError("login");
             console.log("Registration successful!");
             window.location.href = "contacts.html";
         } else if (response.status === 409) {
