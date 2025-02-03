@@ -73,7 +73,11 @@ paths:
           schema:
             allOf:
               - $ref: '#/definitions/LoginResponse'
-              - properties: {error: {example: No Records Found}}
+              - properties:
+                  error: {example: No Records Found}
+                  id: {example: 0}
+                  firstName: {example: ""}
+                  lastName: {example: ""}
         "404": {description: URL Not Found}
 
   /AddContact.php:
