@@ -7,95 +7,203 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/contacts.css" />
     <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
-
-    <!--UPDATE BACKGROUND PICTURE-->
-    <style>
-        h1 {
-            color: royalblue;
-        }
-        .pagination {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: aliceblue;
-    color: royalblue;
-    text-align: center;
-  }
-
-    </style>
   </head>
 
-  <body>
-    <body style="background-image: url('contacts_back.png'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;"></body>
-      <center>
-      <div class="header">
-        <img id="logo" src="logo.png" alt="logo image" width="100" height="100" align="left">
-        <br>
-        <br>
-        <br>
-        <h1 id="title" font-family:Georgia, 'Times New Roman', Times, serif">Contact Keeper Contacts</h1>
-      </div>
-      <!--add a contact-->
-      <div class="add-contact">
-        <form id="addContact">
-          <label for="name">First Name:</label>
-          <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required>
-          <br>
-          <label for="name">Last Name:</label>
-          <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required>
-          <br>
-          <label for="phone">Phone:</label>
-          <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required>
-          <br>
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" placeholder="Enter email" required>
-          <br>
-          <button type="submit">Add Contact</button>
-          <br>
-          <br>
-        </form>
-      </div>
-      <!--search a contact-->
-      <div class="search-contacts">
-        <form id="searchContact">
-          <label for="search">Search:</label>
-          <input type="text" id="search" name="search" placeholder="Enter name">
-          <button type="submit">Search</button>
-        </form>
-      </div>
-      <!--contact list table-->
-      <div id="contact-list">
-        <br>
-        <br>
-        <br>  
-        <table id="contactList" cellpadding="0" cellspacing="0" border="0">
-          <thead>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Phone</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-        </table>
-      </div>
-      <!--pagination-->
-      <!--EDIT CSS FOR STYLING-->
-      <div class="pagination">
-        <p style="text-align: center;">
-        <a href="#">&laquo; Previous</a>
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-        <a href="#">Next &raquo;</a>
-      </div>
+<body>
+  <center>
+  <div class="header">
+    <a href="index.html"><img id="logo" src="Pictures/shark_logo.png" alt="logo image" width="100" height="100" align="left">
+        </a>
+     <br>
+     <br>
+     <br>
+     <h1 id="title">Contact Keeper Contacts</h1>
+     <br>
+     <br>
+  </div>
+  <!--search a contact-->
+  <div class="search-contacts">
+    <form id="searchContact">
+      <!--<label for="search">Search:</label>-->
+      <input type="text" id="search" name="search" placeholder="Enter name"></input>
+      <a href="#" class="search" type="button" id="searchContacts" onclick="searchContacts();">
+        <img id="search-contacts" src="Pictures/shark_search_icon_1.jpg" width="50" height="45">
+      </a>
+      <br>
+      <br>
+    </form>
+  </div>
 
-      </center>
-      <script type="text/javascript" src="javascript/code.js"></script>
-      <script type="text/javascript" src="javascript/md5.js"></script>
-  </body>
+    <!--add a contact-->
+    <a href="#" class="add-contacts" type="button" id="addContacts" style="width:auto;" onclick="document.getElementById('add-contact').style.display='block'">
+      <img id="add-cont-logo" src="Pictures/add_contact_shark.jpg" alt="add contact image" width="50" height="45">
+    </a>
+
+    <div id="add-contact" class="modal">
+      <form class="modal-content animate">
+        <span onclick="document.getElementById('add-contact').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <br>
+        <label class="text">Enter Information Below:</label>
+        <br>
+        <br>
+        <label for="name">First Name:</label>
+        <br>
+        <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required></input>
+        <br>
+        <label for="name">Last Name:</label>
+        <br>
+        <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required></input>
+        <br>
+        <label for="phone">Phone:</label>
+        <br>
+        <input type="text" id="phone" name="phone" placeholder="Enter Phone Number" required></input>
+        <br>
+        <label for="email">Email:</label>
+        <br>
+        <input type="text" id="email" name="email" placeholder="Enter Email" required></input>
+        <br>
+        <button type="submit" style="width:auto;" onclick="addContact();">Add Contact</button>
+        <br>
+        <br>
+      </form>
+    </div>
+
+    <!--contact cards-->
+    <div class="row" id="row0">
+      <div class="column" >
+        <div class="card" id="card0">
+          <img class="card_back" style="width:100%" id="user-photo" src="Pictures/user_photo.png" width="150" height="100">
+          <br>
+          <br>
+          First Name
+          <br>
+          Last Name
+          <br>
+          Email
+          <br>
+          Phone Number
+          <br>
+          <br>
+          <div class="card_back">
+            <a href="#" class="delete-contact" type="button" id="deleteContact" style="width:auto;" onclick="deleteContact();">
+              <img id="delete-contact" src="Pictures/delete_icon.png" width="50" height="48">
+            </a>
+            <a href="#" class="edit-contacts" type="button" id="editContacts" style="width:auto;" onclick="document.getElementById('edit-contact').style.display='block'">
+              <img id="edit-contacts" src="Pictures/edit_icon.png" width="50" height="45">
+            </a>
+            <div id="edit-contact" class="modal">
+              <form class="modal-content animate">
+                <span onclick="document.getElementById('edit-contact').style.display='none'" class="close" title="Close Modal">&times;</span>
+                <br>
+                <label class="text">Edit Information Below:</label>
+                <br>
+                <br>
+                <label for="name">First Name:</label>
+                <br>
+                <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required></input>
+                <br>
+                <label for="name">Last Name:</label>
+                <br>
+                <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required></input>
+                <br>
+                <label for="phone">Phone:</label>
+                <br>
+                <input type="text" id="phone" name="phone" placeholder="Enter Phone Number" required></input>
+                <br>
+                <label for="email">Email:</label>
+                <br>
+                <input type="text" id="email" name="email" placeholder="Enter Email" required></input>
+                <br>
+                <button type="submit" style="width:auto;" onclick="editContact();">Edit Contact</button>
+                <br>
+                <br>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!--contact list table-->
+  <!--<div id="contact-list">
+    <br>
+    <br>
+    <br>  
+    <table id="contactList" cellpadding="20" cellspacing="20" border="20">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="row0">
+          <td id="firstName0"></td>
+          <td id="lastName0"></td>
+          <td id="email0"></td>
+          <td id="phoneNumber0"></td>
+          <td>
+            <a href="#" class="edit-contacts" type="button" id="editContacts" style="width:auto;" onclick="document.getElementById('edit-contact').style.display='block'">
+              <img id="edit-contacts" src="Pictures/edit_icon.png" width="50" height="45">
+            </a>
+            <div id="edit-contact" class="modal">
+              <form class="modal-content animate">
+                <span onclick="document.getElementById('edit-contact').style.display='none'" class="close" title="Close Modal">&times;</span>
+                <br>
+                <label class="text">Edit Information Below:</label>
+                <br>
+                <br>
+                <label for="name">First Name:</label>
+                <br>
+                <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required></input>
+                <br>
+                <label for="name">Last Name:</label>
+                <br>
+                <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required></input>
+                <br>
+                <label for="phone">Phone:</label>
+                <br>
+                <input type="text" id="phone" name="phone" placeholder="Enter Phone Number" required></input>
+                <br>
+                <label for="email">Email:</label>
+                <br>
+                <input type="text" id="email" name="email" placeholder="Enter Email" required></input>
+                <br>
+                <button type="submit" style="width:auto;" onclick="editContact();">Edit Contact</button>
+                <br>
+                <br>
+              </form>
+            </div>
+            <br>
+            <br>
+            <a href="#" class="delete-contact" type="button" id="deleteContact" style="width:auto;" onclick="deleteContact();">
+              <img id="delete-contact" src="Pictures/delete_icon.png" width="50" height="48">
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>-->
+
+
+  <!--pagination-->
+  <div class="pagination">
+    <br>
+    <br>
+    <br>
+    <a href="#">&laquo; Previous</a>
+    <a href="#">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">4</a>
+    <a href="#">5</a>
+    <a href="#">Next &raquo;</a>
+  </div>
+
+  </center>
+</body>
 
 </html>
