@@ -1,23 +1,17 @@
-const firstNameField = document.getElementById("firstName");
-const lastNameField = document.getElementById("lastName");
-
 document.getElementById("loginButton").addEventListener("click", async function() {
     
     const username = document.getElementById("loginUsername").value.trim();
     const password = document.getElementById("loginPass").value.trim();
 
     if (!username) {
-        clearError("login");
         showLoginError("Username required to login");
         return;
     }
     if(!password){
-        clearError("login");
         showLoginError("Password required to login");
         return;
     }
 
-    clearError("login");
     await login(username, password);
 });
 
@@ -32,6 +26,7 @@ async function login(username, password) {
         });
 
         if (response.ok) {
+            clearError("login");
             const data = await response.json();
             console.log("Login successful:", data);
             window.location.href = "contacts.html";
@@ -48,12 +43,11 @@ async function login(username, password) {
 
 document.getElementById("regButton").addEventListener("click", async function () {
     
-    const firstName = firstNameField.value.trim();
-    const lastName = lastNameField.value.trim();
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
     const username = document.getElementById("registerUser").value.trim();
     const password = document.getElementById("registerPass").value.trim();
 
-    clearError("reg");
     if (!firstName) {
         showRegistrationError("First name is required.");
         return;
@@ -89,6 +83,7 @@ async function register(username, password, firstName, lastName) {
         });
 
         if (response.status === 201) {
+            clearError("register");
             console.log("Registration successful!");
             window.location.href = "contacts.html";
         } else if (response.status === 409) {
@@ -190,9 +185,11 @@ function clearError(type) {
 }
 
 function showLoginError(message) {
+    clearError("login");
     displayError("login", message);
 }
 
 function showRegistrationError(message) {
+    clearError("reg");
     displayError("registration", message);
 }
