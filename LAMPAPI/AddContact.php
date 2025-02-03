@@ -63,7 +63,7 @@ function sendResultInfoAsJson($obj)
 
 function returnWithError($err)
 {
-    $retValue = '{"error":"' . $err . '"}';
+    $retValue = '{"error": "' . $err . '", "results": {}}';
     sendResultInfoAsJson($retValue);
 }
 

@@ -112,7 +112,7 @@ function sendResultInfoAsJson($obj)
 
 function returnWithError($err)
 {
-    $retValue = '{"error":"' . $err . '", "results": []}';
+    $retValue = '{"error":"' . $err . '", "pages": 0, "page": 0, "results": []}';
     sendResultInfoAsJson($retValue);
 }
 
