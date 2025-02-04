@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang+"en">
+<html lang="en">
 
-  <head>
-    <title>Contact Keeper Contacts</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="css/contacts.css" />
-    <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
-  </head>
+<head>
+  <title>Contact Keeper Contacts</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="Contacts for Contact Keeper">
+  <link rel="stylesheet" href="css/contacts.css">
+  <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
+</head>
 
 <body>
   <center>
   <div class="header">
-    <a href="index.html"><img id="logo" src="Pictures/shark_logo.png" alt="logo image" width="100" height="100" align="left">
+    <a href="index.html"><img id="logo" src="Pictures/shark_logo.png" alt="logo image">
         </a>
      <br>
      <br>
@@ -21,13 +22,13 @@
      <br>
      <br>
   </div>
+
   <!--search a contact-->
   <div class="search-contacts">
     <form id="searchContact">
-      <!--<label for="search">Search:</label>-->
       <input type="text" id="search" name="search" placeholder="Enter name"></input>
-      <a href="#" class="search" type="button" id="searchContacts" onclick="searchContacts();">
-        <img id="search-contacts" src="Pictures/shark_search_icon_1.jpg" width="50" height="45">
+      <a href="#" class="search_contacts" type="button" id="searchContacts" onclick="searchContacts();">
+        <img id="search-contacts" src="Pictures/shark_search_icon_1.jpg" alt="shark search image" width="49" height="42">
       </a>
       <br>
       <br>
@@ -36,7 +37,7 @@
 
     <!--add a contact-->
     <a href="#" class="add-contacts" type="button" id="addContacts" style="width:auto;" onclick="document.getElementById('add-contact').style.display='block'">
-      <img id="add-cont-logo" src="Pictures/add_contact_shark.jpg" alt="add contact image" width="50" height="45">
+      <img id="add-cont-logo" src="Pictures/add_contact_shark.jpg" alt="add contact image" width="48" height="41">
     </a>
 
     <div id="add-contact" class="modal">
@@ -72,7 +73,7 @@
     <div class="row" id="row0">
       <div class="column" >
         <div class="card" id="card0">
-          <img class="card_back" style="width:100%" id="user-photo" src="Pictures/user_photo.png" width="150" height="150">
+          <img class="card_back" id="user-photo" src="Pictures/user_photo.png" alt="blank user image" width="165" height="165">
           <br>
           <br>
           First Name
@@ -86,10 +87,10 @@
           <br>
           <div class="card_back">
             <a href="#" class="delete-contact" type="button" id="deleteContact" style="width:auto;" onclick="deleteContact();">
-              <img id="delete-contact" src="Pictures/delete_icon.png" width="50" height="48">
+              <img id="delete-contact" src="Pictures/delete_icon.png" alt="delete image" width="50" height="50">
             </a>
             <a href="#" class="edit-contacts" type="button" id="editContacts" style="width:auto;" onclick="document.getElementById('edit-contact').style.display='block'">
-              <img id="edit-contacts" src="Pictures/edit_icon.png" width="50" height="45">
+              <img id="edit-contacts" src="Pictures/edit_icon.png" alt="edit image" width="50" height="50">
             </a>
             <div id="edit-contact" class="modal">
               <form class="modal-content animate">
