@@ -95,7 +95,11 @@ function searchContacts() {
               <div class="card_back">
                 <a href="#" class="delete-contact" style="width:auto;"
                    onclick="deleteContact(${contact.id});">
-                  <img src="Pictures/delete_icon.png" width="50" height="48">
+                  <img src="Pictures/delete_icon.png" width="50" height="50">
+                </a>
+                <a href="#" class="edit-contact" style="width:auto;"
+                   onclick="document.getElementById('edit-contact').style.display='block'">
+                  <img src="Pictures/edit_icon.png" width="50" height="50">
                 </a>
               </div>
             </div>
