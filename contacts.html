@@ -86,9 +86,19 @@
           <br>
           <br>
           <div class="card_back">
-            <a href="#" class="delete-contact" type="button" id="deleteContact" style="width:auto;" onclick="deleteContact();">
+            <a href="#" class="delete-contact" type="button" id="deleteContact" style="width:auto;" onclick="document.getElementById('delete-alert').style.display='block'">
               <img id="delete-contact" src="Pictures/delete_icon.png" alt="delete image" width="50" height="50">
             </a>
+            <div id="delete-alert" class="modal">
+              <form class="modal-content animate">
+                <span onclick="document.getElementById('delete-alert').style.display='none'" class="close" title="Close Modal">&times;</span>
+                <br>
+                <label class="text">Are you sure you want to delete?</label>
+                <br>
+                <button type="submit" style="width:auto;" onclick="deleteContact();">Yes, Delete</button>
+                <br>
+              </form>
+            </div>
             <a href="#" class="edit-contacts" type="button" id="editContacts" style="width:auto;" onclick="document.getElementById('edit-contact').style.display='block'">
               <img id="edit-contacts" src="Pictures/edit_icon.png" alt="edit image" width="50" height="50">
             </a>
