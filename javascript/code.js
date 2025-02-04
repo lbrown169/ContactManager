@@ -30,6 +30,9 @@ async function login(username, password) {
             clearError("reg");
             const data = await response.json();
             console.log("Login successful:", data);
+            if(data.id){
+                localStorage.setItem("userId", data.id);
+            }
             window.location.href = "contacts.html";
         } else if (response.status === 401) {
             showLoginError("Incorrect credentials. Change username or password.");
