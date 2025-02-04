@@ -1,62 +1,69 @@
+/*background*/
 body {
-  background-image: url('../Pictures/underwater_back.png');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
+    background-image: url('../Pictures/underwater_back.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
+/*header/title*/
 h1 {
-  height: 150px;
-  width: 500px;
-  text-align: center;
-  font-family:Georgia, 'Times New Roman', Times, serif;
-  font-weight: bold;
-  color: rgb(0, 8, 31);
+    height: 150px;
+    width: 500px;
+    text-align: center;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    color: rgb(0, 8, 31);
 }
 
+/*logo*/
 #logo{
-  height: 200px;
-  width: 252px;
-  float: left;
+    height: 185.5px;
+    width: 232.5px;
+    float: left;
 }
 
+/*div for center of webpage*/
 div {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: -100px;
-  margin-left: -200px;
-  background-color: 5px solid rgb(0, 178, 209);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -200px;
+    background-color: 5px solid rgb(0, 178, 209);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+/*for github link*/
 #git {
-  color: rgb(0, 8, 31);
-  font-family: ''Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 1vw;
-  background: none;
-  border: none;
-  cursor: pointer;
+    color: rgb(0, 8, 31);
+    font-family: ''Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1vw;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .git:hover,
-#git:hover {
-  color: #80b7da;
+  #git:hover {
+    color: #80b7da;
 }
 
+/*pretty buttons*/
 .button {
-  color: rgb(0, 8, 31);
-  font-family: ''Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif';
-  font-style: normal;
-  font-weight: bolder;
-  font-size: 1.3vw;
-  background: none;
-  border: none;
-  cursor: pointer;
+    color: rgb(0, 8, 31);
+    font-family: ''Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif';
+    font-style: normal;
+    font-weight: bolder;
+    font-size: 1.3vw;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .button:hover,
-#home:hover {
-  color: #80b7da;
+  #home:hover {
+    color: #80b7da;
 }
