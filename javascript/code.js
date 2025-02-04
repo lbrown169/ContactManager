@@ -87,10 +87,7 @@ async function register(username, password, firstName, lastName) {
         });
 
         if (response.status === 201) {
-            clearError("reg");
-            clearError("login");
-            console.log("Registration successful!");
-            window.location.href = "contacts.html";
+            await login(username, password);
         } else if (response.status === 409) {
             showRegistrationError("Username already exists.");
         } else if (response.status === 400) {
