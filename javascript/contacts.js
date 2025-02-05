@@ -4,6 +4,19 @@ document.addEventListener("DOMContentLoaded", function () {
   searchContacts();
 });
 
+let contacts = [];
+
+function startEditContact(contactId) {
+  const contact = contacts.find(c => c.id === contactId);
+  if (contact) {
+    document.getElementById('editFirstName').value = contact.firstName;
+    document.getElementById('editLastName').value = contact.lastName;
+    document.getElementById('editPhone').value = contact.phone;
+    document.getElementById('editEmail').value = contact.email;
+  }
+  document.getElementById('edit-contact').style.display = 'block';
+}
+
 function addContact() {
   event.preventDefault();
   
@@ -84,7 +97,7 @@ function searchContacts(page = 1) {
         alert("Error searching contacts: " + data.error);
       } else {
         console.log("Search results:", data);
-        const contacts = data.results || [];
+        contacts = data.results || [];
         const rowContainer = document.getElementById("row0");
         rowContainer.innerHTML = "";
 
@@ -111,10 +124,11 @@ function searchContacts(page = 1) {
                   <img src="Pictures/delete_icon.png" width="50" height="50">
                 </a>
                 <a href="#" class="edit-contact" style="width:auto;"
-                   onclick="document.getElementById('edit-contact').style.display='block'">
+                   onclick="startEditContact(${contact.id});">
                   <img src="Pictures/edit_icon.png" width="50" height="50">
                 </a>
               </div>
+
             </div>
           `;
           rowContainer.appendChild(cardDiv);
