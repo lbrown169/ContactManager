@@ -14,8 +14,64 @@ function startEditContact(contactId) {
     document.getElementById('editPhone').value = contact.phone;
     document.getElementById('editEmail').value = contact.email;
   }
-  document.getElementById('edit-contact').style.display = 'block';
+  const editContact = document.getElementById('edit-contact');
+  editContact.setAttribute('data-id', contactId);
+  editContact.style.display = 'block';
 }
+
+function editContact() {
+  event?.preventDefault();
+
+  const userId = parseInt(localStorage.getItem("userId") || "0", 10);
+  if (!userId) {
+    alert("User not logged in or userId not found.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  const contactId = parseInt(document.getElementById('edit-contact').getAttribute('data-id') || "0", 10);
+  if (!contactId) { 
+    alert("No contact ID specified.");
+    return;
+  }
+
+  const firstName = document.getElementById('editFirstName').value.trim();
+  const lastName = document.getElementById('editLastName').value.trim();
+  const phone = document.getElementById('editPhone').value.trim();
+  const email = document.getElementById('editEmail').value.trim();
+
+  const payload = {
+    userId: userId,
+    contactId: contactId,
+    firstName: firstName,
+    lastName: lastName,
+    phone: phone,
+    email: email
+  };
+
+  fetch(`${BASE_URL}/UpdateContact.php`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error && data.error.length > 0) {
+        console.error("EditContact Error:", data.error);
+        alert("Error editing contact: " + data.error);
+      } else {
+        console.log("Contact updated:", data);
+        alert("Contact updated successfully!");
+        editContact.style.display = 'none';
+        searchContacts(); 
+      }
+    })
+    .catch(err => {
+      console.error("Fetch error:", err);
+      alert("Could not edit contact.");
+    }); 
+}
+
 
 function addContact() {
   event.preventDefault();
