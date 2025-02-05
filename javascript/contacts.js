@@ -1,5 +1,9 @@
 const BASE_URL = 'http://cop4331.tech/LAMPAPI';
 
+document.addEventListener("DOMContentLoaded", function () {
+  searchContacts();
+});
+
 function addContact() {
   event.preventDefault();
   
