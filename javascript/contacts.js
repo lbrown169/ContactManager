@@ -49,6 +49,7 @@ function editContact() {
     email: email
   };
 
+  const editContact = document.getElementById('edit-contact');
   fetch(`${BASE_URL}/UpdateContact.php`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
