@@ -105,7 +105,7 @@ function searchContacts(page = 1) {
               ${contact.lastName}<br>
               ${contact.email}<br>
               ${contact.phone}<br><br>
-              <div class="card_back">
+              <div class="card_back_og">
                 <a href="#" class="delete-contact" style="width:auto;"
                    onclick="deleteContact(${contact.id});">
                   <img src="Pictures/delete_icon.png" width="50" height="50">
