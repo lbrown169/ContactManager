@@ -88,19 +88,11 @@ function searchContacts(page = 1) {
         rowContainer.innerHTML = "";
 
         contacts.forEach(contact => {
-          const hash = (contact.id * 423) % 199;  // Using prime numbers 31 and 199
+          const hash = (contact.id * 423);  // Using prime numbers 31 and 199
           let imageType, imageNum;
           
-          if (hash % 4 === 0) {
-            imageType = 'women';
-            imageNum = (hash * 17) % 96;
-          } else if (hash % 4 === 1) {
-            imageType = 'men';
-            imageNum = (hash * 23) % 96; 
-          } else {
-            imageType = 'lego';
-            imageNum = (hash * 13) % 9;  
-          }
+          imageType = 'lego';
+          imageNum = (hash * 13) % 10;  
 
           const cardDiv = document.createElement("div");
           cardDiv.className = "column";
