@@ -57,7 +57,7 @@ try {
                            LIMIT 12 OFFSET ?");
 
     $searchPattern = "%" . $query . "%";
-    $stmt->bind_param("sssssi", $userId, $query, $searchPattern, $searchPattern, $searchPattern, $searchPattern, $offset);
+    $stmt->bind_param("ssssssi", $userId, $query, $searchPattern, $searchPattern, $searchPattern, $searchPattern, $offset);
     $stmt->execute();
 
     $result = $stmt->get_result();
@@ -85,7 +85,7 @@ try {
                             Phone LIKE ?)
                             ORDER BY FirstName, LastName, ID");
 
-    $stmt->bind_param("sssss", $userId, $query, $searchPattern, $searchPattern, $searchPattern, $searchPattern);
+    $stmt->bind_param("ssssss", $userId, $query, $searchPattern, $searchPattern, $searchPattern, $searchPattern);
     $stmt->execute();
     $result = $stmt->get_result();
     $pages = ceil($result->fetch_assoc()['total'] / 12);
