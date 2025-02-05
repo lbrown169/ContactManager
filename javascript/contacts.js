@@ -162,3 +162,5 @@ function deleteContact(contactId) {
       alert("Could not delete contact.");
     });
 }
+
+searchContacts();
