@@ -226,7 +226,7 @@ function searchContacts(page = 1) {
           cardDiv.className = "column";
           cardDiv.innerHTML = `
             <div class="card" id="card-${contact.id}">
-              <img class="card_back" src="https://randomuser.me/api/portraits/${imageType}/${imageNum}.jpg">
+              <img class="card_back" src="https://randomuser.me/api/portraits/${imageType}/${imageNum}.jpg" alt="Contact Image">
               <br><br>
               ${contact.firstName}<br>
               ${contact.lastName}<br>
@@ -235,11 +235,11 @@ function searchContacts(page = 1) {
               <div class="card_back_og">
                 <a href="#" class="delete-contact" style="width:auto;"
                    onclick="deleteContact(${contact.id});">
-                  <img src="Pictures/delete_icon.png" width="50" height="50">
+                  <img src="Pictures/delete_icon.png" width="50" height="50" alt="Delete Contact">
                 </a>
                 <a href="#" class="edit-contact" style="width:auto;"
                    onclick="startEditContact(${contact.id});">
-                  <img src="Pictures/edit_icon.png" width="50" height="50">
+                  <img src="Pictures/edit_icon.png" width="50" height="50" alt="Edit Contact">
                 </a>
               </div>
 
