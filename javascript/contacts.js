@@ -2,6 +2,15 @@ const BASE_URL = 'http://cop4331.tech/LAMPAPI';
 
 document.addEventListener("DOMContentLoaded", function () {
   searchContacts();
+  
+  // Add enter key handler for search
+  const searchInput = document.getElementById("search");
+  searchInput.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      searchContacts();
+    }
+  });
 });
 
 let contacts = [];
