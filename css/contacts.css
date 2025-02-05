@@ -107,10 +107,11 @@ th {
   text-decoration: none;
   border-radius: 5px;
   transition: background-color 0.3s;
+  border: 2px solid #00205a;
 }
 
 .pagination a.active {
-  background-color: #003494;
+  background-color: #00205a;
   color: white;
 }
 
@@ -120,7 +121,7 @@ th {
 }
 
 .pagination a:hover:not(.active):not(.disabled) {
-  background-color: #7cccc5;
+  background-color: #00205a;
 }
 
 .pagination .ellipsis {
