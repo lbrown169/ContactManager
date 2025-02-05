@@ -188,6 +188,7 @@ function deleteContact(contactId) {
         const card = document.getElementById(`card-${contactId}`);
         if (card) {
           card.remove();
+          searchContacts();
         }
       } 
       else {
