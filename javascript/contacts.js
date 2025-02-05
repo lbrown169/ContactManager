@@ -88,11 +88,25 @@ function searchContacts(page = 1) {
         rowContainer.innerHTML = "";
 
         contacts.forEach(contact => {
+          const hash = (contact.id * 423) % 199;  // Using prime numbers 31 and 199
+          let imageType, imageNum;
+          
+          if (hash % 4 === 0) {
+            imageType = 'women';
+            imageNum = (hash * 17) % 96;
+          } else if (hash % 4 === 1) {
+            imageType = 'men';
+            imageNum = (hash * 23) % 96; 
+          } else {
+            imageType = 'lego';
+            imageNum = (hash * 13) % 9;  
+          }
+
           const cardDiv = document.createElement("div");
           cardDiv.className = "column";
           cardDiv.innerHTML = `
             <div class="card" id="card-${contact.id}">
-              <img class="card_back" style="width:100%" src="Pictures/user_photo.png">
+              <img class="card_back" style="width:100%" src="https://randomuser.me/api/portraits/${imageType}/${imageNum}.jpg">
               <br><br>
               ${contact.firstName}<br>
               ${contact.lastName}<br>
@@ -210,5 +224,3 @@ function deleteContact(contactId) {
       alert("Could not delete contact.");
     });
 }
-
-searchContacts();
