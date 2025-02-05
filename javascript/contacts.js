@@ -1,9 +1,15 @@
 const BASE_URL = 'http://cop4331.tech/LAMPAPI';
 
 document.addEventListener("DOMContentLoaded", function () {
+  const userId = parseInt(localStorage.getItem("userId") || "0", 10);
+  if (!userId) {
+    showToast("User not logged in or userId not found.", "error");
+    window.location.href = "login.html";
+    return;
+  }
   searchContacts();
   
-  // Add enter key handler for search
+  
   const searchInput = document.getElementById("search");
   searchInput.addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
