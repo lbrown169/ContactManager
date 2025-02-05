@@ -106,7 +106,7 @@ function searchContacts(page = 1) {
           cardDiv.className = "column";
           cardDiv.innerHTML = `
             <div class="card" id="card-${contact.id}">
-              <img class="card_back" style="width:100%" src="https://randomuser.me/api/portraits/${imageType}/${imageNum}.jpg">
+              <img class="card_back" src="https://randomuser.me/api/portraits/${imageType}/${imageNum}.jpg">
               <br><br>
               ${contact.firstName}<br>
               ${contact.lastName}<br>
