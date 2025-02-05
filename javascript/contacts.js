@@ -48,7 +48,7 @@ function addContact() {
     });
 }
 
-function searchContacts() {
+function searchContacts(page = 1) {
   event?.preventDefault();
 
   const userId = parseInt(localStorage.getItem("userId") || "0", 10);
@@ -62,7 +62,7 @@ function searchContacts() {
   const payload = {
     userId: userId,
     query: searchTerm,
-    page: 1
+    page: page
   };
 
   fetch(`${BASE_URL}/SearchContacts.php`, {
@@ -106,12 +106,58 @@ function searchContacts() {
           `;
           rowContainer.appendChild(cardDiv);
         });
+
+        // Update pagination
+        updatePagination(data.page, data.pages);
       }
     })
     .catch(err => {
       console.error("Fetch error:", err);
       alert("Could not search contacts.");
     });
+}
+
+function updatePagination(currentPage, totalPages) {
+  const paginationDiv = document.querySelector('.pagination');
+  if (!paginationDiv) return;
+
+  let html = '';
+  
+  // Previous button
+  html += `<a href="#" onclick="searchContacts(${Math.max(1, currentPage - 1)})" 
+    class="${currentPage <= 1 ? 'disabled' : ''}">&laquo; Previous</a>`;
+
+  // First page
+  html += `<a href="#" onclick="searchContacts(1)" 
+    class="${currentPage === 1 ? 'active' : ''}">1</a>`;
+
+  // Add ellipsis if needed
+  if (currentPage > 3) {
+    html += '<span class="ellipsis">...</span>';
+  }
+
+  // Pages around current page
+  for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+    html += `<a href="#" onclick="searchContacts(${i})" 
+      class="${currentPage === i ? 'active' : ''}">${i}</a>`;
+  }
+
+  // Add ellipsis if needed
+  if (currentPage < totalPages - 2) {
+    html += '<span class="ellipsis">...</span>';
+  }
+
+  // Last page
+  if (totalPages > 1) {
+    html += `<a href="#" onclick="searchContacts(${totalPages})" 
+      class="${currentPage === totalPages ? 'active' : ''}">${totalPages}</a>`;
+  }
+
+  // Next button
+  html += `<a href="#" onclick="searchContacts(${Math.min(totalPages, currentPage + 1)})" 
+    class="${currentPage >= totalPages ? 'disabled' : ''}">Next &raquo;</a>`;
+
+  paginationDiv.innerHTML = html;
 }
 
 function deleteContact(contactId) {
