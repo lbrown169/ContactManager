@@ -10,6 +10,7 @@ function addContact() {
   const userId = parseInt(localStorage.getItem("userId") || "0", 10);
   if (!userId) {
     alert("User not logged in or userId not found.");
+    window.location.href = "login.html";
     return;
   }
 
@@ -58,6 +59,7 @@ function searchContacts(page = 1) {
   const userId = parseInt(localStorage.getItem("userId") || "0", 10);
   if (!userId) {
     alert("User not logged in or userId not found.");
+    window.location.href = "login.html";
     return;
   }
 
@@ -164,6 +166,7 @@ function deleteContact(contactId) {
   const userId = parseInt(localStorage.getItem("userId") || "0", 10);
   if (!userId) {
     alert("User not logged in or userId not found.");
+    window.location.href = "login.html";
     return;
   }
 
