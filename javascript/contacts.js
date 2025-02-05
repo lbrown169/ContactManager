@@ -15,6 +15,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
 let contacts = [];
 
+// Add this container to hold toasts
+document.addEventListener("DOMContentLoaded", function() {
+  const toastContainer = document.createElement('div');
+  toastContainer.className = 'toast-container';
+  document.body.appendChild(toastContainer);
+});
+
+function showToast(message, type = 'info') {
+  const toastContainer = document.querySelector('.toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.textContent = message;
+
+  // Add to container
+  toastContainer.appendChild(toast);
+
+  // Remove after 5 seconds
+  setTimeout(() => {
+    toast.style.animation = 'slideOut 0.3s ease-out';
+    setTimeout(() => {
+      toastContainer.removeChild(toast);
+    }, 300);
+  }, 5000);
+}
+
 function startEditContact(contactId) {
   const contact = contacts.find(c => c.id === contactId);
   if (contact) {
@@ -33,14 +58,14 @@ function editContact() {
 
   const userId = parseInt(localStorage.getItem("userId") || "0", 10);
   if (!userId) {
-    alert("User not logged in or userId not found.");
+    showToast("User not logged in or userId not found.", "error");
     window.location.href = "login.html";
     return;
   }
 
   const contactId = parseInt(document.getElementById('edit-contact').getAttribute('data-id') || "0", 10);
   if (!contactId) { 
-    alert("No contact ID specified.");
+    showToast("No contact ID specified.", "error");
     return;
   }
 
@@ -68,17 +93,17 @@ function editContact() {
     .then(data => {
       if (data.error && data.error.length > 0) {
         console.error("EditContact Error:", data.error);
-        alert("Error editing contact: " + data.error);
+        showToast("Error editing contact: " + data.error, "error");
       } else {
         console.log("Contact updated:", data);
-        alert("Contact updated successfully!");
+        showToast("Contact updated successfully!", "success");
         editContact.style.display = 'none';
         searchContacts(); 
       }
     })
     .catch(err => {
       console.error("Fetch error:", err);
-      alert("Could not edit contact.");
+      showToast("Could not edit contact.", "error");
     }); 
 }
 
@@ -88,7 +113,7 @@ function addContact() {
   
   const userId = parseInt(localStorage.getItem("userId") || "0", 10);
   if (!userId) {
-    alert("User not logged in or userId not found.");
+    showToast("User not logged in or userId not found.", "error");
     window.location.href = "login.html";
     return;
   }
@@ -115,10 +140,10 @@ function addContact() {
     .then(data => {
       if (data.error && data.error.length > 0) {
         console.error("AddContact Error:", data.error);
-        alert("Error adding contact: " + data.error);
+        showToast("Error adding contact: " + data.error, "error");
       } else {
         console.log("Contact added:", data);
-        alert("Contact added successfully!");
+        showToast("Contact added successfully!", "success");
         document.getElementById('add-contact').style.display = 'none';
         document.getElementById("firstName").value = "";
         document.getElementById("lastName").value = "";
@@ -129,7 +154,7 @@ function addContact() {
     })
     .catch(err => {
       console.error("Fetch error:", err);
-      alert("Could not add contact.");
+      showToast("Could not add contact.", "error");
     });
 }
 
