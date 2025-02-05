@@ -26,18 +26,39 @@ function showToast(message, type = 'info') {
   const toastContainer = document.querySelector('.toast-container');
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
-  toast.textContent = message;
-
-  // Add to container
-  toastContainer.appendChild(toast);
-
-  // Remove after 5 seconds
-  setTimeout(() => {
+  
+  // Create message and close button wrapper
+  const content = document.createElement('span');
+  content.textContent = message;
+  
+  const closeBtn = document.createElement('span');
+  closeBtn.className = 'close-toast';
+  closeBtn.innerHTML = '&times;';
+  closeBtn.onclick = () => {
     toast.style.animation = 'slideOut 0.3s ease-out';
     setTimeout(() => {
       toastContainer.removeChild(toast);
     }, 300);
-  }, 5000);
+  };
+
+  // Add both elements to toast
+  toast.appendChild(content);
+  toast.appendChild(closeBtn);
+
+  // Add to container
+  toastContainer.appendChild(toast);
+
+  // Remove after 6 seconds
+  setTimeout(() => {
+    if (toast.parentElement) { // Check if toast still exists
+      toast.style.animation = 'slideOut 0.3s ease-out';
+      setTimeout(() => {
+        if (toast.parentElement) { // Check again before removing
+          toastContainer.removeChild(toast);
+        }
+      }, 300);
+    }
+  }, 6000);
 }
 
 function startEditContact(contactId) {
