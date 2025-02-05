@@ -48,7 +48,8 @@ try {
     // Create search query with LIKE for partial matches
     $stmt = $conn->prepare("SELECT * FROM Contacts 
                            WHERE UserId=? AND 
-                           (FirstName LIKE ? OR 
+                           (? = ''  OR
+                           FirstName LIKE ? OR 
                             LastName LIKE ? OR 
                             Email LIKE ? OR 
                             Phone LIKE ?)
@@ -56,7 +57,7 @@ try {
                            LIMIT 12 OFFSET ?");
 
     $searchPattern = "%" . $query . "%";
-    $stmt->bind_param("sssssi", $userId, $searchPattern, $searchPattern, $searchPattern, $searchPattern, $offset);
+    $stmt->bind_param("sssssi", $userId, $searchPattern, $searchPattern, $searchPattern, $searchPattern, $searchPattern, $offset);
     $stmt->execute();
 
     $result = $stmt->get_result();
@@ -77,13 +78,14 @@ try {
     // Get for page count
     $stmt = $conn->prepare("SELECT COUNT(*) as total FROM Contacts 
                            WHERE UserId=? AND 
-                           (FirstName LIKE ? OR 
+                           (? = '' OR
+                            FirstName LIKE ? OR 
                             LastName LIKE ? OR 
                             Email LIKE ? OR 
                             Phone LIKE ?)
                             ORDER BY FirstName, LastName, ID");
 
-    $stmt->bind_param("sssss", $userId, $searchPattern, $searchPattern, $searchPattern, $searchPattern);
+    $stmt->bind_param("sssss", $userId, $searchPattern, $searchPattern, $searchPattern, $searchPattern, $searchPattern);
     $stmt->execute();
     $result = $stmt->get_result();
     $pages = ceil($result->fetch_assoc()['total'] / 12);
