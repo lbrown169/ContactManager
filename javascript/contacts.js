@@ -127,15 +127,12 @@ function updatePagination(currentPage, totalPages) {
 
   let html = '';
   
-  // Previous button
   html += `<a href="#" onclick="searchContacts(${Math.max(1, currentPage - 1)})" 
     class="${currentPage <= 1 ? 'disabled' : ''}">&laquo; Previous</a>`;
 
-  // First page
   html += `<a href="#" onclick="searchContacts(1)" 
     class="${currentPage === 1 ? 'active' : ''}">1</a>`;
 
-  // Add ellipsis if needed
   if (currentPage > 3) {
     html += '<span class="ellipsis">...</span>';
   }
@@ -146,18 +143,15 @@ function updatePagination(currentPage, totalPages) {
       class="${currentPage === i ? 'active' : ''}">${i}</a>`;
   }
 
-  // Add ellipsis if needed
   if (currentPage < totalPages - 2) {
     html += '<span class="ellipsis">...</span>';
   }
 
-  // Last page
   if (totalPages > 1) {
     html += `<a href="#" onclick="searchContacts(${totalPages})" 
       class="${currentPage === totalPages ? 'active' : ''}">${totalPages}</a>`;
   }
 
-  // Next button
   html += `<a href="#" onclick="searchContacts(${Math.min(totalPages, currentPage + 1)})" 
     class="${currentPage >= totalPages ? 'disabled' : ''}">Next &raquo;</a>`;
 
