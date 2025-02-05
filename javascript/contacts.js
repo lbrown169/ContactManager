@@ -49,7 +49,7 @@ function addContact() {
 }
 
 function searchContacts() {
-  event.preventDefault();
+  event?.preventDefault();
 
   const userId = parseInt(localStorage.getItem("userId") || "0", 10);
   if (!userId) {
