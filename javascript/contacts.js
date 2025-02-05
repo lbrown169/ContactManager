@@ -1,12 +1,6 @@
 const BASE_URL = 'http://cop4331.tech/LAMPAPI';
 
 document.addEventListener("DOMContentLoaded", function () {
-  const userId = parseInt(localStorage.getItem("userId") || "0", 10);
-  if (!userId) {
-    showToast("User not logged in or userId not found.", "error");
-    window.location.href = "login.html";
-    return;
-  }
   searchContacts();
   
   
@@ -85,7 +79,6 @@ function editContact() {
 
   const userId = parseInt(localStorage.getItem("userId") || "0", 10);
   if (!userId) {
-    showToast("User not logged in or userId not found.", "error");
     window.location.href = "login.html";
     return;
   }
@@ -140,7 +133,6 @@ function addContact() {
   
   const userId = parseInt(localStorage.getItem("userId") || "0", 10);
   if (!userId) {
-    showToast("User not logged in or userId not found.", "error");
     window.location.href = "login.html";
     return;
   }
@@ -190,7 +182,6 @@ function searchContacts(page = 1) {
 
   const userId = parseInt(localStorage.getItem("userId") || "0", 10);
   if (!userId) {
-    showToast("User not logged in or userId not found.", "error");
     window.location.href = "login.html";
     return;
   }
@@ -306,7 +297,6 @@ function deleteContact(contactId) {
 
   const userId = parseInt(localStorage.getItem("userId") || "0", 10);
   if (!userId) {
-    showToast("User not logged in or userId not found.", "error");
     window.location.href = "login.html";
     return;
   }
