@@ -184,10 +184,11 @@ function searchContacts(page = 1) {
 
   const userId = parseInt(localStorage.getItem("userId") || "0", 10);
   if (!userId) {
-    alert("User not logged in or userId not found.");
+    showToast("User not logged in or userId not found.", "error");
     window.location.href = "login.html";
     return;
   }
+
 
   const searchTerm = document.getElementById("search").value.trim();
 
@@ -206,12 +207,13 @@ function searchContacts(page = 1) {
     .then(data => {
       if (data.error && data.error.length > 0) {
         console.error("SearchContacts Error:", data.error);
-        alert("Error searching contacts: " + data.error);
+        showToast("Error searching contacts: " + data.error, "error");
       } else {
         console.log("Search results:", data);
         contacts = data.results || [];
         const rowContainer = document.getElementById("row0");
         rowContainer.innerHTML = "";
+
 
         contacts.forEach(contact => {
           const hash = (contact.id * 423);  // Using prime numbers 31 and 199
@@ -252,7 +254,7 @@ function searchContacts(page = 1) {
     })
     .catch(err => {
       console.error("Fetch error:", err);
-      alert("Could not search contacts.");
+      showToast("Could not search contacts.", "error");
     });
 }
 
@@ -298,15 +300,17 @@ function deleteContact(contactId) {
 
   const userId = parseInt(localStorage.getItem("userId") || "0", 10);
   if (!userId) {
-    alert("User not logged in or userId not found.");
+    showToast("User not logged in or userId not found.", "error");
     window.location.href = "login.html";
     return;
   }
 
+
   if (!contactId) {
-    alert("No contact ID specified.");
+    showToast("No contact ID specified.", "error");
     return;
   }
+
 
   const payload = {
     userId: userId,
@@ -320,9 +324,10 @@ function deleteContact(contactId) {
   })
     .then(response => {
       if (response.status === 204) {
-        alert("Contact deleted successfully!");
+        showToast("Contact deleted successfully!", "success");
         const card = document.getElementById(`card-${contactId}`);
         if (card) {
+
           card.remove();
           searchContacts();
         }
@@ -331,15 +336,18 @@ function deleteContact(contactId) {
         response.json()
           .then(data => {
             console.error("DeleteContact Error:", data.error);
-            alert("Error deleting contact: " + (data.error || "Unknown error"));
+            showToast("Error deleting contact: " + (data.error || "Unknown error"), "error");
           })
+
           .catch(() => {
-            alert("Error deleting contact, and could not parse error details.");
+            showToast("Error deleting contact, and could not parse error details.", "error");
           });
+
       }
     })
     .catch(err => {
       console.error("Fetch error:", err);
-      alert("Could not delete contact.");
+      showToast("Could not delete contact.", "error");
     });
+
 }
