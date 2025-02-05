@@ -45,6 +45,7 @@ function addContact() {
         document.getElementById("lastName").value = "";
         document.getElementById("phone").value = "";
         document.getElementById("email").value = "";
+        searchContacts();
       }
     })
     .catch(err => {
